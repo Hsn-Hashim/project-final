@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project_final/extension/nav.dart';
+import 'package:project_final/screens/details_screen.dart';
+import 'package:project_final/service/cart.dart';
 import 'package:project_final/service/database.dart';
+import 'package:project_final/service/cart.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,13 +42,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisCount: 2,
               ),
               itemBuilder: (context, index) {
-                final course = snapshot.data![index];
-                return Card(
-                  child: Column(
-                    children: [
-                      Image.network(course.image ?? ""),
-                      Text(course.name!),
-                    ],
+                final coffee = snapshot.data![index];
+                return InkWell(
+                  onTap: context.push(
+                    DetailsScreen(model: snapshot.data![index]),
+                  ),
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Image.network(
+                          coffee.image!,
+                          width: double.infinity,
+                          height: 190,
+                          fit: BoxFit.cover,
+                        ),
+
+                        Row(
+                          children: [
+                            Text(coffee.name!),
+                            Text("\$${coffee.price}"),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -53,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.brown, 
+        backgroundColor: Colors.brown,
         child: Icon(Icons.add, color: Colors.white),
         onPressed: () {
           showDialog(
@@ -66,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min, 
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         "قهوة جديدة ☕",
@@ -88,8 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       TextField(
                         controller: priceController,
-                        keyboardType:
-                            TextInputType.number, 
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           hintText: "price",
                           prefixIcon: Icon(Icons.attach_money),
@@ -131,9 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             priceController.clear();
                             imageController.clear();
                             Navigator.pop(context);
-                            setState(
-                              () {},
-                            );
+                            setState(() {});
                           },
                           child: Text(
                             "Add",

@@ -7,8 +7,8 @@ class Coffee {
 
   Coffee.fromJson(Map<String, dynamic> json) {
     image = json['image'];
-    name = json['title'];
-    price = json['rating'];
+    name = json['name'];
+    price = json['price'];
   }
 
   Map<String, dynamic> toJson() {
