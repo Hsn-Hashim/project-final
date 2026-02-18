@@ -64,6 +64,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       email: emailController.text,
                       password: passwordController.text,
                     );
+                    context.pushAndDelete(LoginScreen());
                   },
                   child: Text("Sign up"),
                 ),

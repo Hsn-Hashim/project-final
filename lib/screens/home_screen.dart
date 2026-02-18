@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:project_final/service/database.dart';
-import 'package:project_final/widget/text_field_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,12 +10,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var titleController = TextEditingController();
+  var priceController = TextEditingController(); // جديد للسعر
   var imageController = TextEditingController();
 
   @override
   void dispose() {
     titleController.dispose();
     imageController.dispose();
+    priceController.dispose();
+
     super.dispose();
   }
 
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder(
-          future: Database().getCourse(),
+          future: Database().getCoffee(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       Image.network(course.image ?? ""),
-                      Text(course.title!),
+                      Text(course.name!),
                     ],
                   ),
                 );
@@ -52,47 +53,93 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        backgroundColor: Colors.brown, 
+        child: Icon(Icons.add, color: Colors.white),
         onPressed: () {
           showDialog(
             context: context,
             builder: (context) {
               return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 24,
-                  ),
+                  padding: const EdgeInsets.all(24),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.min, 
                     children: [
-                      Text("add course"),
-                      SizedBox(height: 24),
-                      TextFieldWidget(
-                        hint: "title",
-                        icon: Icon(Icons.book),
+                      Text(
+                        "قهوة جديدة ☕",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+
+                      TextField(
                         controller: titleController,
+                        decoration: InputDecoration(
+                          hintText: "name",
+                          prefixIcon: Icon(Icons.coffee),
+                        ),
                       ),
-                      SizedBox(height: 24),
-                      TextFieldWidget(
-                        hint: "image",
-                        icon: Icon(Icons.image),
+                      SizedBox(height: 15),
+
+                      TextField(
+                        controller: priceController,
+                        keyboardType:
+                            TextInputType.number, 
+                        decoration: InputDecoration(
+                          hintText: "price",
+                          prefixIcon: Icon(Icons.attach_money),
+                        ),
+                      ),
+                      SizedBox(height: 15),
+
+                      TextField(
                         controller: imageController,
+                        decoration: InputDecoration(
+                          hintText: "image url",
+                          prefixIcon: Icon(Icons.image),
+                        ),
                       ),
-                      SizedBox(height: 24),
-                      ElevatedButton(
-                        onPressed: () async {
-                          await Database().addCourse(
-                            title: titleController.text,
-                            image: imageController.text,
-                          );
-                          Navigator.pop(context);
-                          setState(() {
-                          });
-                          titleController.clear();
-                          imageController.clear();
-                        },
-                        child: Text("Add"),
+                      SizedBox(height: 25),
+
+                      // زر الحفظ
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.brown,
+                          ),
+                          onPressed: () async {
+                            double price =
+                                double.tryParse(priceController.text) ?? 0.0;
+
+                            String image = imageController.text.isEmpty
+                                ? "https://placehold.co/400x300/3e2723/ffffff?text=Coffee"
+                                : imageController.text;
+
+                            await Database().addCoffee(
+                              name: titleController.text,
+                              price: price,
+                              image: image,
+                            );
+
+                            titleController.clear();
+                            priceController.clear();
+                            imageController.clear();
+                            Navigator.pop(context);
+                            setState(
+                              () {},
+                            );
+                          },
+                          child: Text(
+                            "Add",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ),
                     ],
                   ),

@@ -1,4 +1,4 @@
-import 'package:project_final/models/course.dart';
+import 'package:project_final/models/coffee.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Database {
@@ -16,18 +16,28 @@ class Database {
 
   // ==================== CRUD operation ====================
 
-  Future<List<Course>> getCourse() async {
-    final data = await supabase.from("course").select();
 
-    List<Course> courseList = [];
+
+  addCoffee({
+    required String name,
+    required double price,
+    required String image,
+  }) async {
+    await supabase.from("coffee").insert({
+      "name": name,
+      "price": price,
+      "image": image,
+    });
+  }
+  Future<List<Coffee>> getCoffee() async {
+    final data = await supabase.from("coffee").select();
+
+    List<Coffee> coffeeList = [];
     for (var element in data) {
-      Course c1 = Course.fromJson(element);
-      courseList.add(c1);
+      Coffee c1 = Coffee.fromJson(element);
+      coffeeList.add(c1);
     }
-    return courseList;
+    return coffeeList;
   }
 
-  addCourse({required String title,required String image})async{
-    await supabase.from("course").insert({"title":title,"image":image});
-  }
 }
