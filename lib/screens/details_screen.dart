@@ -61,7 +61,6 @@ class DetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 25),
 
-                  // اسم القهوة
                   Text(
                     model.name ?? "بدون اسم",
                     style: const TextStyle(
@@ -72,7 +71,6 @@ class DetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
 
-                  // السعر
                   Text(
                     "${model.price} ريال",
                     style: const TextStyle(

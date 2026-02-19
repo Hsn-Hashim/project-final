@@ -39,5 +39,16 @@ class Database {
     }
     return coffeeList;
   }
+  Future<void> createOrder(List<Coffee> cart) async {
+    try {
+      final List<Map<String, dynamic>> itemsJson = 
+          cart.map((coffee) => coffee.toJson()).toList();
 
+      await supabase.from('orders').insert({
+        'items': itemsJson,
+      });
+      
+    } catch (e) {
+    }
+  }
 }
