@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:project_final/extension/nav.dart';
-import 'package:project_final/screens/home_screen.dart';
+import 'package:project_final/screens/list_screen.dart';
 import 'package:project_final/screens/signup_screen.dart';
 import 'package:project_final/service/database.dart';
 import 'package:project_final/widget/text_field_widget.dart';
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
 
                       if (context.mounted) {
-                        context.push(HomeScreen());
+                        context.push(ListScreen());
                       }
                     } catch (e) {
                       ScaffoldMessenger.of(
