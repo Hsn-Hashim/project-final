@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:project_final/extension/nav.dart';
+import 'package:project_final/screens/home_screen.dart';
 import 'package:project_final/screens/list_screen.dart';
 import 'package:project_final/screens/signup_screen.dart';
 import 'package:project_final/service/database.dart';
@@ -30,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: Colors.brown,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Center(
@@ -38,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             height: height * 0.5,
             decoration: BoxDecoration(
+               borderRadius: BorderRadius.all(Radius.circular(20)),
               color: Colors.white,
               boxShadow: [BoxShadow(color: Colors.black, blurRadius: 1)],
             ),
@@ -68,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
 
                       if (context.mounted) {
-                        context.push(ListScreen());
+                        context.pushAndDelete(HomeScreen());
                       }
                     } catch (e) {
                       ScaffoldMessenger.of(
@@ -76,13 +78,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       ).showSnackBar(SnackBar(content: Text(e.toString())));
                     }
                   },
-                  child: Text("login"),
+                  child: Text("login", style: TextStyle(color: Colors.black),),
                 ),
                 TextButton(
                   onPressed: () async {
                     context.pushAndDelete(SignupScreen());
                   },
-                  child: Text("don't have an account? signup"),
+                  child: Text("don't have an account? signup", style: TextStyle(color: Colors.black),),
                 ),
               ],
             ),

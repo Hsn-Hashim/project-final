@@ -84,7 +84,7 @@ class DetailsScreen extends StatelessWidget {
                   
                  
                   const Text(
-                    "استمتع بمذاق القهوة الأصلي المحضر من أجود أنواع البن. طعم يعدل مزاجك ويبدأ يومك صح! ☕✨",
+                    "استمتع بالمذاق  الأصلي المحضر من أجود المكونات. طعم يعدل مزاجك ويبدأ يومك صح! ✨",
                     style: TextStyle(fontSize: 16, color: Colors.grey, height: 1.5),
                   ),
 

@@ -51,21 +51,50 @@ class _ListScreenState extends State<ListScreen> {
                     context.push(DetailsScreen(model: snapshot.data![index]));
                   },
                   child: Card(
-                    color: const Color.fromARGB(255, 244, 243, 240),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.network(
-                          coffee.image!,
-                          width: double.infinity,
-                          height: 190,
-                          fit: BoxFit.cover,
-                        ),
-
-                        Text(coffee.name!, style: TextStyle(fontSize: 30)),
-                      ],
-                    ),
-                  ),
+  elevation: 4, 
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(15), 
+  ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch, 
+    children: [
+      
+      Expanded( 
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(15)), 
+          child: Image.network(
+            coffee.image ?? "",
+            fit: BoxFit.cover, 
+            height: 120, 
+            width: double.infinity, 
+            errorBuilder: (context, error, stackTrace) {
+              return const Center(child: Icon(Icons.broken_image, color: Colors.grey));
+            },
+          ),
+        ),
+      ),
+      
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Text(
+              coffee.name ?? "قهوة",
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              maxLines: 1, 
+              overflow: TextOverflow.ellipsis, 
+            ),
+            const SizedBox(height: 5),
+            Text(
+              "${coffee.price ?? 0} SR",
+              style: const TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    ],
+  ),
+),
                 );
               },
             );

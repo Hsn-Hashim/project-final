@@ -28,15 +28,16 @@ class _SignupScreenState extends State<SignupScreen> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.orange.shade300),
+    return Scaffold(backgroundColor: Colors.brown,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Center(
           child: Container(
+            
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             height: height * 0.5,
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
               color: Colors.white,
               boxShadow: [BoxShadow(color: Colors.black, blurRadius: 1)],
             ),
@@ -66,13 +67,13 @@ class _SignupScreenState extends State<SignupScreen> {
                     );
                     context.pushAndDelete(LoginScreen());
                   },
-                  child: Text("Sign up"),
+                  child: Text("Sign up", style: TextStyle(color: Colors.black),),
                 ),
                 TextButton(
                   onPressed: () {
                     context.pushAndDelete(LoginScreen());
                   },
-                  child: Text("have an account? login"),
+                  child: Text("have an account? login", style: TextStyle(color: Colors.black),),
                 ),
               ],
             ),
